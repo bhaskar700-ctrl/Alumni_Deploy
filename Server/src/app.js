@@ -5,6 +5,9 @@ import profileRoutes from './api/routes/profileRoutes.js';
 import forumRoutes from './api/routes/forumRoutes.js';
 import messageRoutes from './api/routes/messageRoutes.js';
 import friendRequestRoutes from './api/routes/friendRequestRoutes.js';
+import jobRoutes from './api/routes/jobRoutes.js';
+import eventRoutes from './api/routes/eventRoutes.js';
+import donationRoutes from './api/routes/donationRoutes.js'
 import { PORT } from './config/index.js';
 
 const app = express();
@@ -31,7 +34,17 @@ app.use('/api/friends', friendRequestRoutes);
 // Message routes
 app.use('/api/messages', messageRoutes);
 
+// Forum routes
 app.use('/api/forums', forumRoutes);
+
+// Job routes
+app.use('/api/jobs', jobRoutes); // Use job routes
+
+app.use('/api/events', eventRoutes);
+
+app.use('/api/donations', donationRoutes);
+
+
 
 // Listen on the configured port
 app.listen(PORT, () => {
