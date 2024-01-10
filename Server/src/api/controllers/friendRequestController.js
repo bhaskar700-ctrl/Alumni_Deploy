@@ -5,10 +5,11 @@ import User from '../models/User.js';
 const FriendRequestController = {
     async sendFriendRequest(req, res) {
         try {
-            const { senderId, receiverId } = req.body;
+            const senderId = req.user._id; // Get sender's ID from authenticated user
+            const { receiverId } = req.body;
 
             // Prevent sending request to self
-            if (senderId === receiverId) {
+            if (senderId.equals(receiverId)) {
                 return res.status(400).json({ message: 'Cannot send friend request to yourself' });
             }
 
@@ -32,6 +33,7 @@ const FriendRequestController = {
             res.status(500).json({ message: error.message });
         }
     },
+    
 
     async acceptFriendRequest(req, res) {
         try {

@@ -27,7 +27,10 @@ app.use('/api/users', profileRoutes);
 //   res.send('Test route works');
 // });
 app.use('/api/friends', friendRequestRoutes);
+
+// Message routes
 app.use('/api/messages', messageRoutes);
+
 app.use('/api/forums', forumRoutes);
 
 // Listen on the configured port

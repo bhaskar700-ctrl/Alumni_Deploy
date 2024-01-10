@@ -5,6 +5,7 @@ import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 import { google } from 'googleapis';
 import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
@@ -51,7 +52,8 @@ export const registerUser = async (req, res) => {
     }
 };
 
-// User login
+
+// loginUser function
 export const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -65,14 +67,21 @@ export const loginUser = async (req, res) => {
             return res.status(401).json({ message: 'Invalid email' });
         }
 
-
         // Check if password is correct
         if (await bcrypt.compare(password, user.password)) {
+            // Generate JWT Token
+            const token = jwt.sign(
+              { userId: user._id },
+              process.env.JWT_SECRET, // Ensure you have a secret key set in your environment variables
+              { expiresIn: '1h' } // Token expiration time
+            );
+
             res.json({
                 _id: user._id,
                 personalDetails: user.personalDetails,
                 contactInfo: user.contactInfo,
-                message: 'Password is correct',
+                token, // Include the JWT token in the response
+                message: 'Login successful'
                 // Include other necessary fields in the response
             });
         } else {
@@ -84,7 +93,6 @@ export const loginUser = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
-
 export const resetPassword = async (req, res) => {
     try {
         const { token, newPassword } = req.body;
