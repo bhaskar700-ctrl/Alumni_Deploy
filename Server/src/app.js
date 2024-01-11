@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import connectDB from './config/db.js';
 import userRoutes from './api/routes/userRoutes.js';
 import profileRoutes from './api/routes/profileRoutes.js';
@@ -8,9 +9,12 @@ import friendRequestRoutes from './api/routes/friendRequestRoutes.js';
 import jobRoutes from './api/routes/jobRoutes.js';
 import eventRoutes from './api/routes/eventRoutes.js';
 import donationRoutes from './api/routes/donationRoutes.js'
+
 import { PORT } from './config/index.js';
 
 const app = express();
+
+app.use(cors());
 
 // Connect to MongoDB
 connectDB();

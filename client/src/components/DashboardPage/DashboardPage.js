@@ -7,7 +7,7 @@ import Highlights from './Highlights/Highlights';
 import UpcomingEvents from './UpcomingEvents/UpcomingEvents';
 import JobBoard from './JobBoard/JobBoard';
 import DonationStatistics from './DonationStatistics/DonationStatistics';
-import QuickLinks from './Quicklinks/Quicklinks';
+import QuickLinks from './quicklinks/Quicklinks';
 
 const DashboardPage = () => {
     return (
