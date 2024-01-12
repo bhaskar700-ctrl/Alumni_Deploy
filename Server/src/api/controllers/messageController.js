@@ -1,6 +1,7 @@
 // controllers/messageController.js
 import Message from '../models/Message.js';
-import User from '../models/User.js'; // Import User model for validation
+import User from '../models/User.js';
+import NotificationController from './NotificationController.js'; // Import User model for validation
 
 const MessageController = {
     async sendMessage(req, res) {
@@ -9,13 +10,21 @@ const MessageController = {
             const { receiverId, content } = req.body;
 
             // Validate receiver existence
-            const receiverExists = await User.exists({ _id: receiverId });
-            if (!receiverExists) {
+            const receiver = await User.findById(receiverId);
+            if (!receiver) {
                 return res.status(404).json({ message: 'Receiver not found' });
             }
 
             const newMessage = new Message({ sender: senderId, receiver: receiverId, content });
             await newMessage.save();
+
+            // Send a notification to the receiver
+            NotificationController.createNotification(
+                receiverId,
+                'New Message',
+                `You have a new message from ${req.user.name}`, // Assuming req.user.name has the sender's name
+                `/messages/${newMessage._id}` // Adjust URL as per your routing logic
+            );
 
             res.status(201).json({ message: 'Message sent', data: newMessage });
         } catch (error) {
