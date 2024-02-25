@@ -58,41 +58,33 @@ export const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Find the user by email
         const user = await User.findOne({ 'contactInfo.email': email });
-
-        // Check if user exists
         if (!user) {
-            console.log('User not found for email:', email); // Debugging log
-            return res.status(401).json({ message: 'Invalid email' });
+            return res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        // Check if password is correct
         if (await bcrypt.compare(password, user.password)) {
-            // Generate JWT Token
             const token = jwt.sign(
-              { userId: user._id },
-              process.env.JWT_SECRET, // Ensure you have a secret key set in your environment variables
-              { expiresIn: '1h' } // Token expiration time
+              { userId: user._id, userType: user.userType },
+              process.env.JWT_SECRET,
+              { expiresIn: '1h' }
             );
 
             res.json({
                 _id: user._id,
+                userType: user.userType,
                 personalDetails: user.personalDetails,
                 contactInfo: user.contactInfo,
-                token, // Include the JWT token in the response
-                message: 'Login successful'
-                // Include other necessary fields in the response
+                token,
             });
         } else {
-            console.log('Password comparison failed'); // Debugging log
-            res.status(401).json({ message: 'Invalid password' });
+            res.status(401).json({ message: 'Invalid credentials' });
         }
     } catch (error) {
-        console.error('Error:', error); // Debugging log for errors
         res.status(500).json({ message: error.message });
     }
 };
+
 export const resetPassword = async (req, res) => {
     try {
         const { token, newPassword } = req.body;

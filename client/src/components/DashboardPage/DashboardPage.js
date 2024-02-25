@@ -11,29 +11,25 @@ import QuickLinks from './quicklinks/Quicklinks';
 
 const DashboardPage = () => {
     return (
-        <div className="bg-blue-200 min-h-screen">
-            <DashboardHeader />
-            <div className="flex overflow-hidden">
-                <DashboardSidebar />
-                <main className="flex-grow p-4">
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                        <div className="lg:col-span-1">
-                            <UserProfileSummary />
-                            <QuickLinks />
-                        </div>
-                        <div className="lg:col-span-2">
-                            <Highlights />
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <RecentNews />
-                                <UpcomingEvents />
-                            </div>
-                            <JobBoard />
-                            <DonationStatistics />
-                        </div>
-                    </div>
-                </main>
-            </div>
+        <div className="container mx-auto py-8">
+      <h1 className="text-3xl font-semibold mb-4">Welcome to the Forum</h1>
+      
+      {/* Forum Thread List */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {/* Sample Thread */}
+        <div className="bg-white p-6 rounded-lg shadow-md">
+          <h2 className="text-xl font-semibold mb-2">Thread Title</h2>
+          <p className="text-gray-700">Thread Description or Preview</p>
+          <div className="mt-4">
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">#Tag1</span>
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700">#Tag2</span>
+          </div>
         </div>
+        
+        {/* Add more thread elements here */}
+        
+      </div>
+    </div>
     );
 };
 

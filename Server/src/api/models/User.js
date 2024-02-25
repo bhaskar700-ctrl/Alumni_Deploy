@@ -6,7 +6,7 @@ const { Schema, model } = mongoose;
 const userSchema = new Schema({
   userType: {
     type: String,
-    enum: ['alumni', 'admin', 'guest'],
+    enum: ['alumni', 'admin', 'faculty', 'student'],
     default: 'alumni'
   },
   personalDetails: {

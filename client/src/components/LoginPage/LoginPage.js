@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../../store/authSlice'; // Ensure this action can handle role
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLogin = async (event) => {
         event.preventDefault();
@@ -13,14 +16,21 @@ const LoginPage = () => {
             const response = await axios.post('http://localhost:3000/api/users/login', { email, password });
             console.log('Login successful:', response.data);
 
-            // Store the token in localStorage or context
+            // Store the token and user role
             localStorage.setItem('token', response.data.token);
+            localStorage.setItem('userRole', response.data.userType); // Store user role
 
-            // Redirect to another page upon successful login (e.g., '/dashboard')
-            navigate('/dashboard'); 
+            // Dispatch the loginSuccess action with the token and user role
+            dispatch(loginSuccess({ token: response.data.token, userType: response.data.userType }));
+
+            // Redirect based on user role
+            if (response.data.userType === 'admin') {
+                navigate('/admin-dashboard');
+            } else {
+                navigate('/dashboard');
+            }
         } catch (error) {
             console.error('Login failed:', error.response?.data?.message || 'Error occurred');
-            // Handle login errors (e.g., showing an error message to the user)
         }
     };
 

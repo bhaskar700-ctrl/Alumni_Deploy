@@ -3,11 +3,18 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import { store } from './store/store'; // Ensure this path matches where your Redux store is defined
 
+// Create a root instance
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// Render the App component wrapped with the Provider component to enable Redux store access
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
