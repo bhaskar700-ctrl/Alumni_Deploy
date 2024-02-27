@@ -4,7 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { store } from './store/store'; // Ensure this path matches where your Redux store is defined
+import { store } from './redux/store/store'; // Adjust this path if necessary
+import { loginSuccess } from './redux/store/authSlice'; // Import the action creator for setting the auth state
+
+// Attempt to retrieve the token from localStorage
+const authToken = localStorage.getItem('authToken');
+
+// If a token is found, update the Redux store's auth state before the app loads
+if (authToken) {
+  store.dispatch(loginSuccess({ token: authToken }));
+}
 
 // Create a root instance
 const root = ReactDOM.createRoot(document.getElementById('root'));

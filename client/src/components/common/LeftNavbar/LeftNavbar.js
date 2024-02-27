@@ -105,7 +105,7 @@ export function SidebarWithContentSeparator() {
           <ListItemPrefix>
             <BriefcaseIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Job Postings
+          <Link to="/jobs" className="text-blue-gray-900 hover:text-blue-gray-600">Job Postings</Link>
         </ListItem>
         <ListItem>
           <ListItemPrefix>
@@ -137,9 +137,9 @@ export function SidebarWithContentSeparator() {
         </ListItem>
         <ListItem>
           <ListItemPrefix>
-            <PowerIcon className="h-5 w-5" />
+            <ChatBubbleOvalLeftIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Log Out
+          <Link to="/logout" className="text-blue-gray-900 hover:text-blue-gray-600">LogOut</Link>
         </ListItem>
       </List>
     </Card>
