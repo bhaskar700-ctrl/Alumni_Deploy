@@ -22,17 +22,31 @@ export const fetchJobById = createAsyncThunk('jobs/fetchJobById', async (jobId, 
   }
 });
 
-export const createJob = createAsyncThunk('jobs/createJob', async (jobData, { getState, rejectWithValue }) => {
-  const { token } = getState().auth;
-  try {
-    const response = await axios.post(`${BASE_URL}/create`, jobData, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    return response.data;
-  } catch (error) {
-    return rejectWithValue(error?.response?.data || 'Unexpected error occurred');
-  }
-});
+// Modified createJob async thunk to include authentication
+export const createJob = createAsyncThunk(
+    'jobs/createJob',
+    async (jobData, { getState, rejectWithValue }) => {
+        const state = getState();
+        const token = state.auth.token; // Retrieve the token
+        const authorId = state.auth.user.id; // Retrieve the user ID to use as the author
+        
+        // Include the author ID in the jobData payload
+        const payload = { ...jobData, author: authorId };
+
+        try {
+            console.log("Authorization Header: ", `Bearer ${token}`);
+            const response = await axios.post(`${BASE_URL}/create`, payload, {
+                headers: {
+                    Authorization: `Bearer ${token}`, // Include the token in the request headers
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error("Job creation error: ", error.response ? error.response.data : error);
+            return rejectWithValue(error?.response?.data || 'Unexpected error occurred');
+        }
+    }
+);
 
 export const updateJob = createAsyncThunk('jobs/updateJob', async ({ jobId, jobData }, { getState, rejectWithValue }) => {
   const { token } = getState().auth;
