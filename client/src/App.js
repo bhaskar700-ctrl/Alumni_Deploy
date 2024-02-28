@@ -16,6 +16,11 @@ import JobListPage from './components/JobPostingPage/JobListPage';
 import CreateJobPage from './components/JobPostingPage/CreateJobPage'; // Create job page
 import JobDetailsPage from './components/JobPostingPage/JobDetailsPage'; // Job details page
 import EditJobPage from './components/JobPostingPage/EditJobPage';
+// Import the event components
+import EventListPage from './components/EventPage/EventListPage';
+import CreateEventPage from './components/EventPage/CreateEventPage';
+import EditEventPage from './components/EventPage/EditEventPage';
+import EventDetailsPage from './components/EventPage/EventDetailsPage';
 
 
 function App() {
@@ -35,11 +40,22 @@ function App() {
                   <Route path="/forum" element={<ForumPage />} />
                   <Route path="/logout" element={<LogoutPage />} />
                   {/* Protected Job Routes */}
+                  
                   <Route path="/jobs/create" element={<CreateJobPage />} />
                   <Route path="/jobs/edit/:jobId" element={<EditJobPage />} />
                   <Route path="/jobs" element={<JobListPage />} />
                   <Route path="/jobs/:jobId" element={<JobDetailsPage />} />
+
+                  {/* Protected Event Routes */}
+                  <Route path="/events/create" element={<CreateEventPage />} />
+                  <Route path="/events/edit/:eventId" element={<EditEventPage />} />
+                  <Route path="/events" element={<EventListPage />} />
+                  <Route path="/events/:eventId" element={<EventDetailsPage />} />
                   {/* More protected routes as needed */}
+
+                  {/* More protected routes as needed */}
+
+
                 </Routes>
               </div>
             </div>

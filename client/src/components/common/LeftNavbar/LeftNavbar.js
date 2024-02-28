@@ -78,7 +78,8 @@ export function SidebarWithContentSeparator() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                Manage Events
+                <Link to="/events" className="text-blue-gray-900 hover:text-blue-gray-600">Manage Events</Link>
+                
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
