@@ -22,6 +22,9 @@ import CreateEventPage from './components/EventPage/CreateEventPage';
 import EditEventPage from './components/EventPage/EditEventPage';
 import EventDetailsPage from './components/EventPage/EventDetailsPage';
 
+import EditProfilePage from './components/ProfilePage/EditProfilePage';
+import UpdatePrivacySettingsPage from './components/ProfilePage/UpdatePrivacyPage';
+import UserProfilePage from './components/ProfilePage/UserProfilePage';
 
 function App() {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -52,6 +55,10 @@ function App() {
                   <Route path="/events" element={<EventListPage />} />
                   <Route path="/events/:eventId" element={<EventDetailsPage />} />
                   {/* More protected routes as needed */}
+
+                  <Route path="/edit-profile/:userId" element={<EditProfilePage />} />
+                  <Route path="/update-privacy/:userId" element={<UpdatePrivacySettingsPage />} />
+                  <Route path="/profile/:userId" element={<UserProfilePage />} />
 
                   {/* More protected routes as needed */}
 

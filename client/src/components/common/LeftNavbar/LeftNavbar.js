@@ -45,7 +45,8 @@ export function SidebarWithContentSeparator() {
           <ListItemPrefix>
             <UserCircleIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Profile
+          <Link to="/edit-profile/:userId" className="text-blue-gray-900 hover:text-blue-gray-600">Profile</Link>
+        
         </ListItem>
         <ListItem>
           <ListItemPrefix>
@@ -79,7 +80,6 @@ export function SidebarWithContentSeparator() {
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
                 <Link to="/events" className="text-blue-gray-900 hover:text-blue-gray-600">Manage Events</Link>
-                
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
