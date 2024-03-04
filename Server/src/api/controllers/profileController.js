@@ -1,61 +1,50 @@
-// profileController.js
-import User from '../models/User.js';
+import User from '../models/User.js'; // Adjust the path as necessary
 
 const ProfileController = {
-    // async createProfile(req, res) {
-    //     try {
-    //         const { personalDetails, contactInfo, educationHistory, workExperience, password } = req.body;
-
-    //         const newUser = new User({
-    //             personalDetails,
-    //             contactInfo,
-    //             educationHistory,
-    //             workExperience,
-    //             password // Ensure password is hashed in the User model
-    //         });
-
-    //         await newUser.save();
-
-    //         res.status(201).json({ message: 'Profile created successfully', userId: newUser._id });
-    //     } catch (error) {
-    //         res.status(500).json({ message: error.message });
-    //     }
-    // },
-
-    async editProfile(req, res) {
+    // Fetch the authenticated user's profile
+    async getProfile(req, res) {
         try {
-            const userId = req.params.userId;
-            const { personalDetails, contactInfo, educationHistory, workExperience } = req.body;
-
-            const updatedUser = await User.findByIdAndUpdate(
-                userId,
-                {
-                    personalDetails,
-                    contactInfo,
-                    educationHistory,
-                    workExperience
-                },
-                { new: true, omitUndefined: true }
-            );
-
-            if (!updatedUser) {
-                return res.status(404).json({ message: 'User not found' });
-            }
-
-            res.status(200).json({ message: 'Profile updated successfully', userId: updatedUser._id });
+            // Assuming authenticate middleware attaches the user to req.user
+            const user = req.user.toObject(); // Convert the Mongoose document to a plain JavaScript object
+            delete user.password; // Exclude password from the result
+            
+            res.status(200).json(user);
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
     },
 
+    // Edit the authenticated user's profile
+    async editProfile(req, res) {
+        try {
+            const userId = req.user._id; // Use _id from the authenticated user
+            const { personalDetails, contactInfo, educationHistory, workExperience } = req.body;
+
+            const updatedUser = await User.findByIdAndUpdate(
+                userId,
+                { $set: { personalDetails, contactInfo, educationHistory, workExperience } },
+                { new: true, omitUndefined: true }
+            ).select('-password'); // Exclude password from the result
+
+            if (!updatedUser) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            res.status(200).json({ message: 'Profile updated successfully', profile: updatedUser });
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    },
+
+    // Update the authenticated user's privacy settings
     async updatePrivacySettings(req, res) {
         try {
-            const userId = req.params.userId;
+            const userId = req.user._id; // Use _id from the authenticated user
             const { privacySettings } = req.body;
 
             const user = await User.findByIdAndUpdate(
                 userId,
-                { privacySettings },
+                { $set: { privacySettings } },
                 { new: true, omitUndefined: true }
             );
 
@@ -63,7 +52,7 @@ const ProfileController = {
                 return res.status(404).json({ message: 'User not found' });
             }
 
-            res.status(200).json({ message: 'Privacy settings updated successfully', userId: user._id });
+            res.status(200).json({ message: 'Privacy settings updated successfully', privacySettings: user.privacySettings });
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

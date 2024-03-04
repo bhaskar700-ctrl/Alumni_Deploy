@@ -6,29 +6,36 @@ import NotificationController from './NotificationController.js';
 const ForumController = {
     async createPost(req, res) {
         try {
-            const { authorId, content } = req.body;
-            const newPost = new Post({ author: authorId, content });
+            // Assuming you've added middleware that validates the token and attaches the user to req
+            const userId = req.user._id; // Get the authenticated user's ID from the request
+            const { content } = req.body;
+    
+            // Validate the existence of content
+            if (!content) {
+                return res.status(400).json({ message: 'Content is required.' });
+            }
+    
+            const newPost = new Post({ author: userId, content });
             await newPost.save();
-
-            // Notify users about the new forum post
-            // Adjust the logic below to determine who should be notified
-            const users = await User.find({}); 
+    
+            // Notify other users about the new forum post
+            const users = await User.find({ _id: { $ne: userId } }); // Exclude the author
             users.forEach(user => {
-                if (user._id.toString() !== authorId) { // Avoid notifying the author
-                    NotificationController.createNotification(
-                        user._id,
-                        'New Forum Post',
-                        `New post created in the forum`,
-                        `/posts/${newPost._id}`
-                    );
-                }
+                NotificationController.createNotification(
+                    user._id,
+                    'New Forum Post',
+                    `New post created in the forum`,
+                    `/posts/${newPost._id}`
+                );
             });
-
+    
             res.status(201).json({ message: 'Post created successfully', post: newPost });
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            console.error("Error creating post:", error); // Log the specific error for debugging
+            res.status(500).json({ message: 'An error occurred while creating the post.' });
         }
     },
+    
 
 
 
