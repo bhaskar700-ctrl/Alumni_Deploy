@@ -7,13 +7,14 @@ import connectDB from './config/db.js';
 // Import routes
 import userRoutes from './api/routes/userRoutes.js';
 import profileRoutes from './api/routes/profileRoutes.js';
-import forumRoutes from './api/routes/forumRoutes.js';
+import forumRoutesInit from './api/routes/forumRoutes.js';
 import messageRoutes from './api/routes/messageRoutes.js';
 import friendRequestRoutes from './api/routes/friendRequestRoutes.js';
 import jobRoutes from './api/routes/jobRoutes.js';
 import eventRoutes from './api/routes/eventRoutes.js';
 import donationRoutes from './api/routes/donationRoutes.js';
 import notificationRoutes from './api/routes/NotificationRoutes.js';
+import alumniRoutes from './api/routes/alumniRoutes.js';
 
 import { PORT } from './config/index.js';
 
@@ -33,6 +34,9 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+// Initialize the forumRoutes with the io instance
+const forumRoutes = forumRoutesInit(io);
+
 // Routes
 app.get('/', (req, res) => {
   res.send('Alumni Information System Backend');
@@ -44,10 +48,12 @@ app.use('/api/users', profileRoutes);
 app.use('/api/friends', friendRequestRoutes);
 app.use('/api/messages', messageRoutes);
 app.use('/api/forums', forumRoutes);
+
 app.use('/api/jobs', jobRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/donations', donationRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/alumni', alumniRoutes);
 
 
 

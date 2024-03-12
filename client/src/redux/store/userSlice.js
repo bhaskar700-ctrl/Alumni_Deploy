@@ -38,6 +38,9 @@ export const updateUserProfile = createAsyncThunk(
       const { auth: { token } } = getState();
       setAuthToken(token);
       const response = await axiosInstance.put('/profile', profileData);
+      // Inside updateUserProfile thunk
+      console.log('Updating profile with data:', profileData);
+
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message || 'Could not update user profile');

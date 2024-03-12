@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserProfile } from '../../redux/store/userSlice'; // Adjust the path to match your project structure
 import { format } from 'date-fns';
@@ -30,11 +32,14 @@ const UserProfilePage = () => {
             <h1 className="text-2xl font-semibold text-gray-800 mb-4 text-center">User Profile</h1>
             {userProfile && (
                 <>
-                    <div className="text-center">
-                        <img src={userProfile.profilePicture || 'https://via.placeholder.com/150'} alt="Profile" className="rounded-full h-32 w-32 mx-auto mb-4"/>
+                    <div className="text-center mb-4">
+                        <img src={userProfile.profilePicture || 'https://via.placeholder.com/150'} alt="Profile" className="rounded-full h-32 w-32 mx-auto"/>
                         <h2 className="text-lg font-semibold">{userProfile.personalDetails.firstName} {userProfile.personalDetails.lastName}</h2>
                         <p className="text-sm text-gray-600">{userProfile.contactInfo.email}</p>
+                        {/* Link to Edit Profile */}
+                        <Link to={`/edit-profile/${userProfile._id}`} className="text-blue-600 hover:underline">Edit Profile</Link>
                     </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <h3 className="text-md font-semibold text-gray-700 mb-2">Contact Information</h3>
