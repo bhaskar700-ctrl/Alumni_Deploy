@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Setup Axios Instance for forum-related API calls
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000/api/forums', // Adjust to your API's base URL
+  baseURL: 'http://localhost:3000/api/forums',
 });
 
 const setAuthToken = (token) => {
@@ -14,7 +13,6 @@ const setAuthToken = (token) => {
   }
 };
 
-// Async thunk for fetching forum posts
 export const fetchPosts = createAsyncThunk(
   'forum/fetchPosts',
   async (_, { getState, rejectWithValue }) => {
@@ -29,14 +27,13 @@ export const fetchPosts = createAsyncThunk(
   }
 );
 
-// Async thunk for creating a forum post
 export const createPost = createAsyncThunk(
   'forum/createPost',
   async (postData, { getState, rejectWithValue }) => {
     try {
       const { auth: { token } } = getState();
       setAuthToken(token);
-      const response = await axiosInstance.post('/post', postData);
+      const response = await axiosInstance.post('/posts', postData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message || 'Could not create post');
@@ -44,9 +41,24 @@ export const createPost = createAsyncThunk(
   }
 );
 
+// Async thunk for creating a comment
+export const createComment = createAsyncThunk(
+  'forum/createComment',
+  async ({ postId, content }, { getState, rejectWithValue }) => {
+    try {
+      const { auth: { token } } = getState();
+      setAuthToken(token);
+      const response = await axiosInstance.post(`/post/${postId}/comment`, { content });
+      return { postId, comment: response.data };
+    } catch (error) {
+      return rejectWithValue(error.response.data.message || 'Could not add comment');
+    }
+  }
+);
+
 const initialState = {
   posts: [],
-  status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
+  status: 'idle',
   error: null
 };
 
@@ -54,10 +66,17 @@ const forumSlice = createSlice({
   name: 'forum',
   initialState,
   reducers: {
-    // Reducer to add a post to the state
     addPost(state, action) {
       state.posts = [action.payload, ...state.posts];
-    }
+    },
+    // Reducer to add a comment to a specific post
+    addCommentToPost(state, action) {
+      const { postId, comment } = action.payload;
+      const postIndex = state.posts.findIndex(post => post._id === postId);
+      if (postIndex !== -1) {
+        state.posts[postIndex].comments.push(comment);
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -77,16 +96,29 @@ const forumSlice = createSlice({
       })
       .addCase(createPost.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        // Add the new post to the beginning of the posts array
         state.posts.unshift(action.payload);
       })
       .addCase(createPost.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload || 'Failed to create post';
+      })
+      .addCase(createComment.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(createComment.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        const { postId, comment } = action.payload;
+        const postIndex = state.posts.findIndex(post => post._id === postId);
+        if (postIndex !== -1) {
+          state.posts[postIndex].comments.push(comment);
+        }
+      })
+      .addCase(createComment.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload || 'Could not add comment';
       });
   },
 });
 
-// Export the reducer and the addPost action
-export const { addPost } = forumSlice.actions;
+export const { addPost, addCommentToPost } = forumSlice.actions;
 export default forumSlice.reducer;

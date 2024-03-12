@@ -9,6 +9,7 @@ const eventSchema = new mongoose.Schema({
     endDate: Date,
     organizer: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    image: String, // Add image field
     createdAt: { type: Date, default: Date.now }
 });
 

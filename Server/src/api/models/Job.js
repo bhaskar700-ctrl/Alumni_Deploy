@@ -9,6 +9,7 @@ const jobSchema = new mongoose.Schema({
     company: String,
     type: { type: String, enum: ['Full-Time', 'Part-Time', 'Contract', 'Internship'] },
     applyLink: String, // URL or email
+    image: String, // Add image field
     createdAt: { type: Date, default: Date.now }
 });
 

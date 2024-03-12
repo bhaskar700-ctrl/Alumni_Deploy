@@ -6,8 +6,8 @@ import NotificationController from './NotificationController.js';
 const jobController = {
     createJob: async (req, res) => {
         try {
-            const { title, description, location, company, type, applyLink, author } = req.body;
-            const newJob = new Job({ title, description, location, company, type, applyLink, author });
+            const { title, description, location, company, type, applyLink, author, image } = req.body;
+            const newJob = new Job({ title, description, location, company, type, applyLink, author, image });
             await newJob.save();
 
             // Notify users about the new job posting
@@ -50,20 +50,16 @@ const jobController = {
 
     updateJob: async (req, res) => {
         try {
-            const job = await Job.findById(req.params.jobId);
-            if (!job) {
-                return res.status(404).send({ message: 'Job not found' });
+            const { image } = req.body;
+            const updatedJobData = { ...req.body };
+            if (image) {
+                updatedJobData.image = image; // If image is provided, update the image field
             }
 
-            // Check if the user is the author or an admin
-            const isAuthor = job.author.toString() === req.user._id.toString();
-            const isAdmin = req.user.userType === 'admin';
-            
-            if (!isAuthor && !isAdmin) {
-                return res.status(403).send({ message: 'Not authorized to edit this job' });
+            const updatedJob = await Job.findByIdAndUpdate(req.params.jobId, updatedJobData, { new: true });
+            if (!updatedJob) {
+                return res.status(404).json({ message: 'Job not found' });
             }
-
-            const updatedJob = await Job.findByIdAndUpdate(req.params.jobId, req.body, { new: true });
 
             // Notify all users about the job update...
             const users = await User.find({});

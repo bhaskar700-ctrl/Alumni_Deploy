@@ -6,8 +6,8 @@ import NotificationController from './NotificationController.js';
 const eventController = {
     createEvent: async (req, res) => {
         try {
-            const { title, description, location, startDate, endDate, organizer } = req.body;
-            const newEvent = new Event({ title, description, location, startDate, endDate, organizer });
+            const { title, description, location, startDate, endDate, organizer, image } = req.body;
+            const newEvent = new Event({ title, description, location, startDate, endDate, organizer, image });
             await newEvent.save();
 
             // Notify all users about the new event
@@ -26,6 +26,7 @@ const eventController = {
             res.status(400).json({ message: error.message });
         }
     },
+
 
     getAllEvents: async (req, res) => {
         try {
@@ -50,7 +51,13 @@ const eventController = {
 
     updateEvent: async (req, res) => {
         try {
-            const updatedEvent = await Event.findByIdAndUpdate(req.params.eventId, req.body, { new: true });
+            const { image } = req.body;
+            const updatedEventData = { ...req.body };
+            if (image) {
+                updatedEventData.image = image; // If image is provided, update the image field
+            }
+
+            const updatedEvent = await Event.findByIdAndUpdate(req.params.eventId, updatedEventData, { new: true });
             if (!updatedEvent) {
                 return res.status(404).json({ message: 'Event not found' });
             }
