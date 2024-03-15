@@ -14,7 +14,7 @@ import jobRoutes from './api/routes/jobRoutes.js';
 import eventRoutes from './api/routes/eventRoutes.js';
 import donationRoutes from './api/routes/donationRoutes.js';
 import notificationRoutes from './api/routes/NotificationRoutes.js';
-import alumniRoutes from './api/routes/alumniRoutes.js';
+import userDirectoryRoutes from './api/routes/userDirectoryRoutes.js';
 
 import { PORT } from './config/index.js';
 
@@ -53,7 +53,7 @@ app.use('/api/jobs', jobRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/donations', donationRoutes);
 app.use('/api/notifications', notificationRoutes);
-app.use('/api/alumni', alumniRoutes);
+app.use('/api/directory', userDirectoryRoutes);
 
 
 

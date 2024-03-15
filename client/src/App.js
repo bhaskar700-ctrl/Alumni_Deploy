@@ -26,6 +26,9 @@ import EditProfilePage from './components/ProfilePage/EditProfilePage';
 import UpdatePrivacySettingsPage from './components/ProfilePage/UpdatePrivacyPage';
 import UserProfilePage from './components/ProfilePage/UserProfilePage';
 
+import UserDirectoryPage from './components/UserDirectoryPage/UserDirectoryPage';
+import UserDirectoryProfilePage from './components/UserDirectoryPage/UserProfilePage';
+
 function App() {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
@@ -59,6 +62,11 @@ function App() {
                   <Route path="/edit-profile/:userId" element={<EditProfilePage />} />
                   <Route path="/update-privacy/:userId" element={<UpdatePrivacySettingsPage />} />
                   <Route path="/profile/:userId" element={<UserProfilePage />} />
+
+                  {/* Add User Directory route */}
+                  <Route path="/user-directory" element={<UserDirectoryPage />} />
+                  <Route path="/user-directory/profile/:userId" element={<UserDirectoryProfilePage />} />
+                  
 
                   {/* More protected routes as needed */}
 

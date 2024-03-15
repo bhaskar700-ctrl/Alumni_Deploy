@@ -29,6 +29,8 @@ const userSchema = new Schema({
   educationHistory: [{
     institutionName: String,
     degree: String,
+    department: String, // New field for department
+    programme: String,  // New field for program
     yearOfGraduation: Number,
     activities: [String]
   }],
@@ -37,7 +39,8 @@ const userSchema = new Schema({
     position: String,
     startDate: Date,
     endDate: Date,
-    description: String
+    description: String,
+    skills: [String]
   }],
   privacySettings: {
     // Define various privacy settings here as needed

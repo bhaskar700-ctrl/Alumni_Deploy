@@ -52,7 +52,7 @@ export function SidebarWithContentSeparator() {
           <ListItemPrefix>
             <UserGroupIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Alumni Directory
+          <Link to="/user-directory" className="text-blue-gray-900 hover:text-blue-gray-600">User Directory</Link>
         </ListItem>
         <Accordion
           open={open === 1}
