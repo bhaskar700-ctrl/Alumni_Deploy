@@ -33,7 +33,7 @@ export const createPost = createAsyncThunk(
     try {
       const { auth: { token } } = getState();
       setAuthToken(token);
-      const response = await axiosInstance.post('/posts', postData);
+      const response = await axiosInstance.post('/post', postData);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data.message || 'Could not create post');
