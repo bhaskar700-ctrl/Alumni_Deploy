@@ -31,7 +31,14 @@ const PostList = () => {
     return (
         <div className="space-y-4">
             {posts.map(post => {
-                const { firstName, lastName, profilePicture } = post.author?.personalDetails || {};
+                // Extracting personalDetails here for clarity
+                const personalDetails = post.author?.personalDetails;
+
+                if (!personalDetails) {
+                    return null; // Skip rendering if personalDetails are not available
+                }
+
+                const { firstName, lastName, profilePicture } = personalDetails;
 
                 return (
                     <div key={post._id} className="p-4 bg-white rounded-lg shadow">
