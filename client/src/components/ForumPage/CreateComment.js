@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { createComment } from '../../redux/store/forumSlice';
+import { createComment } from '../../redux/store/forumSlice';  // Ensure this path is correct
 
 const CreateComment = ({ postId }) => {
     const [content, setContent] = useState('');
     const dispatch = useDispatch();
 
     const handleSubmit = () => {
+        if (!content.trim()) {
+            alert("Comment content cannot be empty.");
+            return;
+        }
         dispatch(createComment({ postId, content }));
         setContent('');
     };
@@ -16,7 +20,7 @@ const CreateComment = ({ postId }) => {
             <textarea
                 className="w-full p-2 border rounded"
                 value={content}
-                onChange={e => setContent(e.target.value)}
+                onChange={(e) => setContent(e.target.value)}
                 placeholder="Add a comment..."
             />
             <button
