@@ -6,7 +6,14 @@ const CommentList = ({ comments }) => {
     return (
         <div className="mt-4">
             {comments.map(comment => {
-                const { firstName, lastName, profilePicture } = comment.author?.personalDetails || {};
+                // Extracting personalDetails here for clarity
+                const personalDetails = comment.author?.personalDetails;
+
+                if (!personalDetails) {
+                    return null; // Skip rendering if personalDetails are not available
+                }
+
+                const { firstName, lastName, profilePicture } = personalDetails;
 
                 return (
                     <div key={comment._id} className="mt-2 p-2 bg-gray-100 rounded flex items-center">
