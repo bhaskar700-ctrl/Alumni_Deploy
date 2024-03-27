@@ -5,13 +5,12 @@ import {
     toggleUsersList, 
     setActiveChat, 
     fetchConversations, 
-    fetchConversationsList
+    fetchConversationsList // Make sure this action is defined in your chattingSlice
 } from '../../redux/store/chattingSlice';
 
 const ChatListSidebar = () => {
     const dispatch = useDispatch();
-    // Use a default empty array if users or conversationsList is undefined
-    const { users = [], conversationsList = [], showUsersList, activeChat } = useSelector(state => state.chatting);
+    const { users, conversationsList, showUsersList, activeChat } = useSelector(state => state.chatting);
 
     useEffect(() => {
         dispatch(fetchUsers());
@@ -27,11 +26,6 @@ const ChatListSidebar = () => {
         dispatch(fetchConversations(user._id));
     };
 
-    const handleConversationClick = (conversation) => {
-        dispatch(setActiveChat(conversation.userDetails));
-        dispatch(fetchConversations(conversation._id));
-    };
-
     return (
         <div className="w-64 bg-gray-100 border-r h-full">
             <div className="p-4 border-b flex justify-between items-center">
@@ -45,7 +39,7 @@ const ChatListSidebar = () => {
             </div>
             <ul className="overflow-y-auto">
                 {showUsersList ? 
-                    users.map(user => (
+                    (users || []).map(user => (
                         <li 
                             key={user._id} 
                             onClick={() => handleUserClick(user)}
@@ -54,13 +48,13 @@ const ChatListSidebar = () => {
                             {user.personalDetails.firstName} {user.personalDetails.lastName}
                         </li>
                     )) : 
-                    conversationsList.map(conversation => (
+                    (conversationsList || []).map(conversation => (
                         <li 
                             key={conversation._id} 
-                            onClick={() => handleConversationClick(conversation)}
-                            className={`p-4 cursor-pointer hover:bg-gray-200 ${activeChat && activeChat._id === conversation.userDetails._id ? 'bg-blue-100' : ''}`}
+                            onClick={() => handleUserClick(conversation)}
+                            className={`p-4 cursor-pointer hover:bg-gray-200 ${activeChat && activeChat._id === conversation._id ? 'bg-blue-100' : ''}`}
                         >
-                            {conversation.userDetails.personalDetails.firstName} {conversation.userDetails.personalDetails.lastName}: {conversation.lastMessage.content}
+                            {conversation.lastMessage.content} {/* Assuming lastMessage contains the message content */}
                         </li>
                     ))
                 }
