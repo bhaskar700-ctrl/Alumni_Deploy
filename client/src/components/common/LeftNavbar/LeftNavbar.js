@@ -122,14 +122,15 @@ export function SidebarWithContentSeparator() {
         </ListItem>
         <hr className="my-2 border-blue-gray-50" />
         <ListItem>
-          <ListItemPrefix>
-            <InboxIcon className="h-5 w-5" />
-          </ListItemPrefix>
-          Messages
-          <ListItemSuffix>
-            <Chip value="New" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
-          </ListItemSuffix>
-        </ListItem>
+  <ListItemPrefix>
+    <InboxIcon className="h-5 w-5" />
+  </ListItemPrefix>
+  <Link to="/messages" className="text-blue-gray-900 hover:text-blue-gray-600">Messages</Link>
+  <ListItemSuffix>
+    <Chip value="New" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
+  </ListItemSuffix>
+</ListItem>
+
         <ListItem>
           <ListItemPrefix>
             <Cog6ToothIcon className="h-5 w-5" />
