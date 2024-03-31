@@ -35,6 +35,9 @@ import UserProfilePage from './components/ProfilePage/UserProfilePage';
 import UserDirectoryPage from './components/UserDirectoryPage/UserDirectoryPage';
 import UserDirectoryProfilePage from './components/UserDirectoryPage/UserProfilePage';
 
+import ChatPage from './components/ChatPage/ChatPage'; // Adjust path based on your structure
+
+
 function App() {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
 
@@ -75,6 +78,9 @@ function App() {
                   {/* Add User Directory route */}
                   <Route path="/user-directory" element={<UserDirectoryPage />} />
                   <Route path="/user-directory/profile/:userId" element={<UserDirectoryProfilePage />} />
+
+                  <Route path="/messages" element={<ChatPage />} />
+
                   
 
                   {/* More protected routes as needed */}

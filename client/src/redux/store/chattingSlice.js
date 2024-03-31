@@ -45,7 +45,6 @@ export const sendMessage = createAsyncThunk(
     }
     const response = await axiosInstance.post('/send', { receiverId, content });
     return response.data;
-
   }
 );
 
@@ -53,7 +52,6 @@ export const fetchConversationsList = createAsyncThunk(
   'chatting/fetchConversationsList',
   async (_, { getState }) => {
       const { auth: { token } } = getState();
-
       // Set the Authorization header for this request without affecting global axios defaults
       const config = token ? {
         headers: { 'Authorization': `Bearer ${token}` }

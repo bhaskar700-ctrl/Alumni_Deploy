@@ -27,4 +27,8 @@ function messageRoutes(io) {
     return router;
 }
 
+<<<<<<< HEAD
 export default messageRoutes;
+=======
+export default messageRoutes;
+>>>>>>> c0121ef8c58a6127a4dac48f7faa8276d93921f6
