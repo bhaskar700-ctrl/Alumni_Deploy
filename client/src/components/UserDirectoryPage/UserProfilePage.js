@@ -24,20 +24,31 @@ const UserDirectoryProfilePage = () => {
   }
 
   return (
-    <div>
-      {/* Render user profile details */}
-      <h2>User Profile</h2>
-      <div>
-        <strong>Name:</strong> {user.personalDetails.firstName} {user.personalDetails.lastName}
+    <div className="flex items-center justify-center h-screen">
+  <div className="xl:mx-auto xl:container ">
+    <div className="lg:px-20  px-4  py-8">
+      <div className="flex flex-col-reverse border-2 border-sky-400 lg:flex-row items-center">
+        <div className="w-full lg:w-1/2 md:py-9 py-6">
+          <img
+            src={user.avatarUrl} // Assuming avatarUrl is the URL for user avatar
+            alt={`Avatar of ${user.personalDetails.firstName} ${user.personalDetails.lastName}`}
+            className="lg:w-full h-full object-cover object-center w-full rounded-full overflow-hidden"
+          />
+        </div>
+        <div className="lg:w-1/2 lg:pl-12 lg:pr-24">
+          <p className="md:text-3xl lg:text-4xl text-2xl font-semibold lg:leading-9 text-gray-800  lg:pb-10 md:pb-2 pb-2 ">
+            ALUMNI INFORMATION
+          </p>
+          <p className="text-sm leading-5 text-gray-600  md:pb-10 pb-8">
+            <p className="mb-2"><strong>Email: {user.contactInfo.email}</strong> </p>
+            <p className="mb-2"><strong>Name: {user.personalDetails.firstName} {user.personalDetails.lastName}</strong> </p>
+            <p className="mb-2"><strong>Working Company: {user.workExperience.length > 0 ? user.workExperience[0].companyName : 'N/A'}</strong> </p>
+          </p>
+        </div>
       </div>
-      <div>
-        <strong>Email:</strong> {user.contactInfo.email}
-      </div>
-      <div>
-        <strong>Working Company:</strong> {user.workExperience.length > 0 ? user.workExperience[0].companyName : 'N/A'}
-      </div>
-      {/* Add more profile details as needed */}
     </div>
+  </div>
+</div>
   );
 };
 

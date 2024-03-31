@@ -1,12 +1,30 @@
-// routes/messageRoutes.js
 import express from 'express';
+import authenticate from '../../middleware/authenticate.js';
 import MessageController from '../controllers/MessageController.js';
-import authenticate from '../../middleware/authenticate.js'; // Adjust the path as necessary
 
-const router = express.Router();
+function messageRoutes(io) {
+    const router = express.Router();
+    const messageController = new MessageController(io);
 
-router.post('/send', authenticate, MessageController.sendMessage);
-router.get('/conversation/:userId/:otherUserId', authenticate, MessageController.getConversation);
-router.delete('/:messageId', authenticate, MessageController.deleteMessage);
+    router.post('/send', authenticate, (req, res) => messageController.sendMessage(req, res));
+    // router.get('/conversation/:userId/:otherUserId', authenticate, (req, res) => messageController.getConversation(req, res));
+    router.get('/conversation/:otherUserId', authenticate, (req, res) => messageController.getConversation(req, res));
 
-export default router;
+    router.get('/search', authenticate, (req, res) => messageController.searchMessages(req, res));
+    router.post('/messages/:messageId/read', authenticate, (req, res) => messageController.markMessageAsRead(req, res));
+    router.put('/messages/:messageId', authenticate, (req, res) => messageController.editMessage(req, res));
+    router.delete('/:messageId', authenticate, (req, res) => messageController.deleteMessage(req, res));
+    router.get('/list', authenticate, (req, res) => messageController.listConversations(req, res));
+
+    // Route to start a new conversation
+    router.post('/start', authenticate, (req, res) => messageController.startConversation(req, res));
+
+    router.get('/users', authenticate, (req, res) => messageController.getAllUsers(req, res));
+
+
+    // Add other routes as needed
+
+    return router;
+}
+
+export default messageRoutes;

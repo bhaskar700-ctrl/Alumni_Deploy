@@ -16,6 +16,8 @@ import donationRoutes from './api/routes/donationRoutes.js';
 import notificationRoutes from './api/routes/NotificationRoutes.js';
 import userDirectoryRoutes from './api/routes/userDirectoryRoutes.js';
 
+import messageRoutesInit from './api/routes/messageRoutes.js';
+
 import { PORT } from './config/index.js';
 
 const app = express();
@@ -46,7 +48,7 @@ app.get('/', (req, res) => {
 app.use('/api/users', userRoutes);
 app.use('/api/users', profileRoutes);
 app.use('/api/friends', friendRequestRoutes);
-app.use('/api/messages', messageRoutes);
+app.use('/api/messages', messageRoutes(io));
 app.use('/api/forums', forumRoutes);
 
 app.use('/api/jobs', jobRoutes);
@@ -63,14 +65,42 @@ app.use('/api/directory', userDirectoryRoutes);
 
 // Socket.IO Real-time Connections
 io.on('connection', (socket) => {
-    console.log('A user connected with id:', socket.id);
+  console.log('A user connected with id:', socket.id);
 
-    socket.on('disconnect', () => {
-        console.log('User disconnected:', socket.id);
-    });
+  socket.on('joinRoom', (roomId) => {
+      socket.join(roomId);
+      console.log(`User ${socket.id} joined room ${roomId}`);
+  });
 
-    // Handle other real-time events here
+  socket.on('forum:postMessage', (data) => {
+      io.in(data.forumId).emit('forum:newPost', data);
+  });
+
+  socket.on('message:sendMessage', (data) => {
+      io.in(data.chatId).emit('message:newMessage', data);
+  });
+
+  // Typing indicator events
+  socket.on('typing:start', (data) => {
+      socket.to(data.chatId).emit('typing:start', {
+          userId: data.userId,
+          chatId: data.chatId
+      });
+  });
+
+  socket.on('typing:stop', (data) => {
+      socket.to(data.chatId).emit('typing:stop', {
+          userId: data.userId,
+          chatId: data.chatId
+      });
+  });
+
+  socket.on('disconnect', () => {
+      console.log('User disconnected:', socket.id);
+  });
 });
+
+
 
 // Change app.listen to server.listen to include Socket.IO
 server.listen(PORT, () => {

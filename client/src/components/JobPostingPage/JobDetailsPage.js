@@ -28,15 +28,27 @@ const JobDetailsPage = () => {
     }
 
     return (
-        <div className="job-details">
-            <h2>{job.title}</h2>
-            <p><strong>Description:</strong> {job.description}</p>
-            <p><strong>Company:</strong> {job.company}</p>
-            <p><strong>Location:</strong> {job.location}</p>
-            <p><strong>Type:</strong> {job.type}</p>
-            {job.applyLink && (
-                <p><strong>How to Apply:</strong> <a href={job.applyLink} target="_blank" rel="noopener noreferrer">Apply Here</a></p>
-            )}
+        <div className="xl:mx-auto xl:container border-2 xl:px-20 md:px-6 px-4 py-12">
+            <div className="lg:flex items-center justify-center lg:space-x-12 2xl:space-x-6">
+                <div className="">
+                    <h2 className="lg:text-4xl text-3xl font-extrabold leading-9 text-gray-800 ">Job Details</h2>
+                    <div className="mt-6 lg:w-full">
+                    <div className="job-details">
+                        <h2 className="mb-4">{job.title}</h2>
+                        <p className="mb-2"><strong>Description:</strong> {job.description}</p>
+                        <p className="mb-2"><strong>Company:</strong> {job.company}</p>
+                        <p className="mb-2"><strong>Location:</strong> {job.location}</p>
+                        <p className="mb-2"><strong>Type:</strong> {job.type}</p>
+                        {job.applyLink && (
+                            <p className="mb-2"><strong>How to Apply:</strong> <a href={job.applyLink} target="_blank" rel="noopener noreferrer">Apply Here</a></p>
+                        )}
+                    </div>
+                    </div>
+                </div>
+                <div className="hidden lg:block lg:w-3/5 xl:w-3/5 w-full lg:mt-0 mt-6">
+                    <img src="https://i.ibb.co/SKLJ7WX/austin-distel-jp-Hw8ndw-J-Q-unsplash-1.png" alt="ongoing meeting" className="w-full obejct-fit object-center object-fill h-full" />
+                </div>
+            </div>
         </div>
     );
 };

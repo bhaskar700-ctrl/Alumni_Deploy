@@ -66,7 +66,7 @@ const EditJobPage = () => {
   if (error) return <p className="text-red-500 text-center py-5">{error}</p>;
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
+    <div className="max-w-4xl border-2 border-sky-500 shadow-inherit mx-auto mb-10 p-4">
       <h2 className="text-xl font-semibold mb-4">Edit Job</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

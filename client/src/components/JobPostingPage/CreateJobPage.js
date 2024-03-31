@@ -36,7 +36,7 @@ const CreateJobPage = () => {
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-5">
+        <div className="max-w-4xl mx-auto border-2 border-sky-400 mb-10 p-5">
             <h2 className="text-2xl font-semibold mb-6">Create Job Posting</h2>
             {createStatus === 'failed' && <p className="text-red-500">{createError}</p>}
             <form onSubmit={handleSubmit} className="space-y-4">

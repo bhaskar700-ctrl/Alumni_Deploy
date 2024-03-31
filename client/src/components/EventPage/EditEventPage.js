@@ -50,7 +50,7 @@ const EditEventPage = () => {
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
+    <div className="border-2 border-sky-500 max-w-4xl mx-auto p-4">
       <h2 className="text-2xl font-semibold mb-6">Edit Event</h2>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
