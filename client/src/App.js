@@ -11,7 +11,7 @@ import DashboardPage from './components/DashboardPage/DashboardPage';
 import ForumPage from './components/ForumPage/ForumPage';
 import LogoutPage from './components/LogOutPage/LogOutPage';
 import Signup from './components/Signup/Signup';
-import ChatPage from './components/ChatPage/ChatPage';
+//import ChatPage from './components/ChatPage/ChatPage';
 import Donation from './components/DonationPage/Donation';
 // Import the job components
 // Correct the paths according to the actual component definitions
