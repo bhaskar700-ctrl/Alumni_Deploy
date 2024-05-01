@@ -1,4 +1,3 @@
-// model/User.js
 import mongoose from 'mongoose';
 
 const { Schema, model } = mongoose;
@@ -20,8 +19,7 @@ const userSchema = new Schema({
       required: true,
       unique: true,
       lowercase: true,
-      trim: true,
-      index: true
+      trim: true
     },
     phone: String,
     address: String
@@ -29,6 +27,8 @@ const userSchema = new Schema({
   educationHistory: [{
     institutionName: String,
     degree: String,
+    department: String,
+    programme: String,
     yearOfGraduation: Number,
     activities: [String]
   }],
@@ -37,10 +37,10 @@ const userSchema = new Schema({
     position: String,
     startDate: Date,
     endDate: Date,
-    description: String
+    description: String,
+    skills: [String]
   }],
   privacySettings: {
-    // Define various privacy settings here as needed
     showEmail: { type: Boolean, default: true },
     showPhone: { type: Boolean, default: false },
   },
@@ -48,22 +48,21 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
-
   friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-
   resetPasswordToken: String,
   resetPasswordExpires: Date,
-
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now }
-  
+}, {
+  timestamps: true  // Add this to automatically handle createdAt and updatedAt
 });
 
-// Update updatedAt on save
-userSchema.pre('save', function(next) {
-  this.updatedAt = Date.now();
-  next();
+// Add text index for searching by user's first and last name
+userSchema.index({
+  'personalDetails.firstName': 'text',
+  'personalDetails.lastName': 'text'
 });
+
+// Ensure email is indexed
+userSchema.index({ 'contactInfo.email': 1 }, { unique: true });
 
 const User = model('User', userSchema);
 

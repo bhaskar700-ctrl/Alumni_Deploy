@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../../store/authSlice'; // Ensure this action can handle role
+import { loginSuccess } from '../../redux/store/authSlice'; // Adjust the import path as necessary
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -16,13 +16,20 @@ const LoginPage = () => {
             const response = await axios.post('http://localhost:3000/api/users/login', { email, password });
             console.log('Login successful:', response.data);
 
-            // Store the token and user role
+            // Store the token, user role, and user ID in localStorage
             localStorage.setItem('token', response.data.token);
-            localStorage.setItem('userRole', response.data.userType); // Store user role
+            localStorage.setItem('userRole', response.data.userType); // Assuming the role is userType in your response
+            localStorage.setItem('userId', response.data._id); // Assuming _id is the user ID in your response
 
-            // Dispatch the loginSuccess action with the token and user role
-            dispatch(loginSuccess({ token: response.data.token, userType: response.data.userType }));
-
+            // Dispatch the loginSuccess action with the user details
+            dispatch(loginSuccess({
+                token: response.data.token,
+                userType: response.data.userType,
+                personalDetails: response.data.personalDetails,
+                contactInfo: response.data.contactInfo,
+                _id: response.data._id, // Including the user ID
+            }));
+              
             // Redirect based on user role
             if (response.data.userType === 'admin') {
                 navigate('/admin-dashboard');

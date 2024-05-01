@@ -22,13 +22,13 @@ const Navbar = () => {
                             <a href="#" className="py-4 px-2 text-yellow-500 border-b-4 border-yellow-500 font-semibold">Home</a>
                             <a href="#" className="py-4 px-2 text-gray-300 font-semibold hover:text-yellow-500 transition duration-300">Services</a>
                             <a href="#" className="py-4 px-2 text-gray-300 font-semibold hover:text-yellow-500 transition duration-300">About</a>
-                            <a href="#" className="py-4 px-2 text-gray-300 font-semibold hover:text-yellow-500 transition duration-300">Contact Us</a>
+                            <Link to="/contact" className="py-4 px-2 text-gray-300 font-semibold hover:text-yellow-500 transition duration-300">Contact Us</Link>
                         </div>
                     </div>
                     {!isAuthenticated && ( // Only render if not authenticated
                         <div className="hidden md:flex items-center space-x-3">
                             <Link to="/login" className="py-2 px-2 font-medium text-gray-300 rounded hover:bg-yellow-500 hover:text-gray-800 transition duration-300">Log In</Link>
-                            <a href="#" className="py-2 px-2 font-medium text-gray-800 bg-yellow-500 rounded hover:bg-yellow-400 transition duration-300">Sign Up</a>
+                            <Link to="/signup" className="py-2 px-2 font-medium text-gray-800 bg-yellow-500 rounded hover:bg-yellow-400 transition duration-300">Sign Up</Link>
                         </div>
                     )}
                     <div className="md:hidden flex items-center">

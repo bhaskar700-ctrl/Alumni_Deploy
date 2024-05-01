@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import {
   Card,
@@ -34,7 +34,7 @@ export function SidebarWithContentSeparator() {
   };
 
   return (
-    <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+    <Card className="h-100vh w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
         <Typography variant="h5" color="blue-gray">
           Alumni Portal
@@ -45,25 +45,40 @@ export function SidebarWithContentSeparator() {
           <ListItemPrefix>
             <UserCircleIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Profile
+          <Link
+            to="/profile/:userId"
+            className="text-blue-gray-900 hover:text-blue-gray-600"
+          >
+            Profile
+          </Link>
         </ListItem>
         <ListItem>
           <ListItemPrefix>
             <UserGroupIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Alumni Directory
+          <Link
+            to="/user-directory"
+            className="text-blue-gray-900 hover:text-blue-gray-600"
+          >
+            User Directory
+          </Link>
         </ListItem>
         <Accordion
           open={open === 1}
           icon={
             <ChevronDownIcon
               strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""}`}
+              className={`mx-auto h-4 w-4 transition-transform ${
+                open === 1 ? "rotate-180" : ""
+              }`}
             />
           }
         >
           <ListItem className="p-0" selected={open === 1}>
-            <AccordionHeader onClick={() => handleOpen(1)} className="border-b-0 p-3">
+            <AccordionHeader
+              onClick={() => handleOpen(1)}
+              className="border-b-0 p-3"
+            >
               <ListItemPrefix>
                 <CalendarIcon className="h-5 w-5" />
               </ListItemPrefix>
@@ -78,7 +93,12 @@ export function SidebarWithContentSeparator() {
                 <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                 </ListItemPrefix>
-                Manage Events
+                <Link
+                  to="/events"
+                  className="text-blue-gray-900 hover:text-blue-gray-600"
+                >
+                  Manage Events
+                </Link>
               </ListItem>
               <ListItem>
                 <ListItemPrefix>
@@ -105,19 +125,34 @@ export function SidebarWithContentSeparator() {
           <ListItemPrefix>
             <BriefcaseIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Job Postings
+          <Link
+            to="/jobs"
+            className="text-blue-gray-900 hover:text-blue-gray-600"
+          >
+            Job Postings
+          </Link>
         </ListItem>
         <ListItem>
           <ListItemPrefix>
             <CurrencyDollarIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Donations
+          <Link
+            to="/donation"
+            className="text-blue-gray-900 hover:text-blue-gray-600"
+          >
+            Donations
+          </Link>
         </ListItem>
         <ListItem>
           <ListItemPrefix>
             <ChatBubbleOvalLeftIcon className="h-5 w-5" />
           </ListItemPrefix>
-          <Link to="/forum" className="text-blue-gray-900 hover:text-blue-gray-600">Forum</Link>
+          <Link
+            to="/forum"
+            className="text-blue-gray-900 hover:text-blue-gray-600"
+          >
+            Forum
+          </Link>
         </ListItem>
         <hr className="my-2 border-blue-gray-50" />
         <ListItem>
@@ -126,9 +161,36 @@ export function SidebarWithContentSeparator() {
           </ListItemPrefix>
           Messages
           <ListItemSuffix>
-            <Chip value="New" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
+            <Chip
+              value="New"
+              size="sm"
+              variant="ghost"
+              color="blue-gray"
+              className="rounded-full"
+            />
           </ListItemSuffix>
         </ListItem>
+        <ListItem>
+          <ListItemPrefix>
+            <InboxIcon className="h-5 w-5" />
+          </ListItemPrefix>
+          <Link
+            to="/messages"
+            className="text-blue-gray-900 hover:text-blue-gray-600"
+          >
+            Messages
+          </Link>
+          <ListItemSuffix>
+            <Chip
+              value="New"
+              size="sm"
+              variant="ghost"
+              color="blue-gray"
+              className="rounded-full"
+            />
+          </ListItemSuffix>
+        </ListItem>
+
         <ListItem>
           <ListItemPrefix>
             <Cog6ToothIcon className="h-5 w-5" />
@@ -137,9 +199,25 @@ export function SidebarWithContentSeparator() {
         </ListItem>
         <ListItem>
           <ListItemPrefix>
-            <PowerIcon className="h-5 w-5" />
+            <Cog6ToothIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Log Out
+          <Link
+            to="/upload"
+            className="text-blue-gray-900 hover:text-blue-gray-600"
+          >
+            UploadCSV
+          </Link>
+        </ListItem>
+        <ListItem>
+          <ListItemPrefix>
+            <ChatBubbleOvalLeftIcon className="h-5 w-5" />
+          </ListItemPrefix>
+          <Link
+            to="/logout"
+            className="text-blue-gray-900 hover:text-blue-gray-600"
+          >
+            LogOut
+          </Link>
         </ListItem>
       </List>
     </Card>

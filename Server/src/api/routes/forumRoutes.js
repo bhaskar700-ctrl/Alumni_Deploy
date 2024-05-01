@@ -1,12 +1,21 @@
-// routes/forumRoutes.js
 import express from 'express';
-import ForumController from '../controllers/forumController.js';
+import ForumControllerInit from '../controllers/ForumController.js';
+import authenticate from '../../middleware/authenticate.js'; // Ensure the path is correct
 
-const router = express.Router();
+// This function will initialize the ForumController with the Socket.IO instance
+// Assuming `io` is imported or passed to this module
+export default function forumRoutes(io) {
+    const ForumController = ForumControllerInit(io);
 
-router.post('/post', ForumController.createPost);
-router.post('/post/:postId/comment', ForumController.commentOnPost);
-router.get('/posts', ForumController.getAllPosts);
-router.get('/post/:postId', ForumController.getPost);
+    const router = express.Router();
 
-export default router;
+    // Apply the authenticate middleware to secure routes
+    router.post('/post', authenticate, ForumController.createPost);
+    router.post('/post/:postId/comment', authenticate, ForumController.commentOnPost);
+
+    // Public routes
+    router.get('/posts', ForumController.getAllPosts);
+    router.get('/post/:postId', ForumController.getPost);
+
+    return router;
+}
