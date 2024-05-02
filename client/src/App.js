@@ -11,6 +11,7 @@ import DashboardPage from './components/DashboardPage/DashboardPage';
 import ForumPage from './components/ForumPage/ForumPage';
 import LogoutPage from './components/LogOutPage/LogOutPage';
 import Signup from './components/Signup/Signup';
+import UploadStudentsPage from './components/UploadStudentsPage/UploadStudentsPage';
 //import ChatPage from './components/ChatPage/ChatPage';
 import Donation from './components/DonationPage/Donation';
 // Import the job components
@@ -19,7 +20,7 @@ import JobListPage from './components/JobPostingPage/JobListPage';
 import CreateJobPage from './components/JobPostingPage/CreateJobPage'; // Create job page
 import JobDetailsPage from './components/JobPostingPage/JobDetailsPage'; // Job details page
 import EditJobPage from './components/JobPostingPage/EditJobPage';
-import UploadCSV from './components/UploadCSV/UploadCSV';
+//import UploadCSV from './components/UploadCSV/UploadCSV';
 import Contact from './components/Contact/Contact';
 // Import the event components
 import EventListPage from './components/EventPage/EventListPage';
@@ -49,13 +50,14 @@ function App() {
           <div className="flex flex-col md:flex-row">
             <SidebarWithContentSeparator className="md:w-1/4" />
             <div className="flex flex-col mt-15 w-full">
-              <div className="w-full h-100vh  px-4">
+              <div className="w-full h-100vh py-5  px-4">
                 <Routes>
                   <Route path="/dashboard" element={<DashboardPage />} />
                   <Route path="/forum" element={<ForumPage />} />
                   <Route path="/logout" element={<LogoutPage />} />
-                  <Route path="/upload" element={<UploadCSV />} />
+                  {/* <Route path="/upload" element={<UploadCSV />} /> */}
                   <Route path="/donation" element={<Donation />} />
+                  <Route path="/upload-students" element={<UploadStudentsPage />} />
                   {/* Protected Job Routes */}
                   
                   <Route path="/jobs/create" element={<CreateJobPage />} />

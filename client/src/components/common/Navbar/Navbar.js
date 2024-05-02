@@ -13,10 +13,11 @@ const Navbar = () => {
                 <div className="flex justify-between">
                     <div className="flex space-x-7">
                         <div>
-                            <a href="#" className="flex items-center py-4 px-2">
-                                <img src="https://www.tezu.ernet.in/images/tulogo.png" alt="Logo" className="h-8 w-8 mr-2"/>
-                                <span className="font-semibold text-white text-lg">Alumni Information System</span>
-                            </a>
+                <Link to="/dashboard" className="flex items-center py-4 px-2">
+                <img src="https://www.tezu.ernet.in/images/tulogo.png" alt="Logo" className="h-8 w-8 mr-2" />
+                <span className="font-semibold text-white text-lg">Alumni Information System</span>
+                </Link>
+
                         </div>
                         <div className="hidden md:flex items-center space-x-1">
                             <a href="#" className="py-4 px-2 text-yellow-500 border-b-4 border-yellow-500 font-semibold">Home</a>

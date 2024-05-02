@@ -32,7 +32,7 @@ const LoginPage = () => {
               
             // Redirect based on user role
             if (response.data.userType === 'admin') {
-                navigate('/admin-dashboard');
+                navigate('/dashboard');
             } else {
                 navigate('/dashboard');
             }
@@ -93,9 +93,7 @@ const LoginPage = () => {
                     <div className="m-auto text-center text-white p-8">
                         <h1 className="text-3xl font-bold mb-2">We are more than just a company</h1>
                         <p className="text-lg">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            
                         </p>
                     </div>
                 </div>

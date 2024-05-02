@@ -30,7 +30,8 @@ const UserDirectoryProfilePage = () => {
       <div className="flex flex-col-reverse border-2 border-sky-400 lg:flex-row items-center">
         <div className="w-full lg:w-1/2 md:py-9 py-6">
           <img
-            src={user.avatarUrl} // Assuming avatarUrl is the URL for user avatar
+          src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+           // src={user.avatarUrl} // Assuming avatarUrl is the URL for user avatar
             alt={`Avatar of ${user.personalDetails.firstName} ${user.personalDetails.lastName}`}
             className="lg:w-full h-full object-cover object-center w-full rounded-full overflow-hidden"
           />

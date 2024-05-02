@@ -159,21 +159,6 @@ export function SidebarWithContentSeparator() {
           <ListItemPrefix>
             <InboxIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Messages
-          <ListItemSuffix>
-            <Chip
-              value="New"
-              size="sm"
-              variant="ghost"
-              color="blue-gray"
-              className="rounded-full"
-            />
-          </ListItemSuffix>
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <InboxIcon className="h-5 w-5" />
-          </ListItemPrefix>
           <Link
             to="/messages"
             className="text-blue-gray-900 hover:text-blue-gray-600"
@@ -195,14 +180,8 @@ export function SidebarWithContentSeparator() {
           <ListItemPrefix>
             <Cog6ToothIcon className="h-5 w-5" />
           </ListItemPrefix>
-          Settings
-        </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <Cog6ToothIcon className="h-5 w-5" />
-          </ListItemPrefix>
           <Link
-            to="/upload"
+            to="/upload-students"
             className="text-blue-gray-900 hover:text-blue-gray-600"
           >
             UploadCSV
