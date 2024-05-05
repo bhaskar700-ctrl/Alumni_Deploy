@@ -16,9 +16,11 @@ const ChatWindow = () => {
     }, [dispatch, activeChat]);
 
     useEffect(() => {
-        setFilteredConversations(
-            conversations.filter(msg => msg.content.toLowerCase().includes(searchQuery.toLowerCase()))
-        );
+        if (conversations) {
+            setFilteredConversations(
+                conversations.filter(msg => msg.content && msg.content.toLowerCase().includes(searchQuery.toLowerCase()))
+            );
+        }
     }, [conversations, searchQuery]);
 
     const handleSendMessage = (e) => {
@@ -43,12 +45,15 @@ const ChatWindow = () => {
             </div>
             <div className="flex-1 overflow-y-auto bg-indigo-100 p-4">
                 {filteredConversations.map((msg, index) => (
-                    <div key={index} className="p-2 flex items-center">
+                    <div key={index} className={`p-2 flex ${msg.senderId === activeChat._id ? 'items-end justify-end' : 'items-start'}`}>
+                    <div className={`flex ${msg.senderId === activeChat._id ? 'mr-auto' : 'ml-auto'} `}>
+            
                         {/* User photo */}
                         <div className="w-8 h-8 overflow-hidden rounded-full mr-2">
                             <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User" className="w-full h-full object-cover" />
                         </div>
                         <div>{msg.content}</div>
+                        </div>
                     </div>
                 ))}
             </div>

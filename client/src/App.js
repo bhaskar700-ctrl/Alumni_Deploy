@@ -100,7 +100,7 @@ function App() {
                   <Route path="/contact" element={<Contact />} />
           {/* Public Job Routes */}
           
-          {!isAuthenticated && <Route path="/dashboard" element={<LoginPage />} />}
+          {!isAuthenticated && <Route path="/dashboard" element={<DashboardPage />} />}
           {/* Other public routes */}
         </Routes>
         <Footer />
