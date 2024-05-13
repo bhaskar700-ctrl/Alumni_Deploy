@@ -1,6 +1,6 @@
 import express from 'express';
 import authenticate from '../../middleware/authenticate.js';
-import MessageController from '../controllers/MessageController.js';
+import MessageController from '../controllers/messageController.js';
 
 function messageRoutes(io) {
     const router = express.Router();
