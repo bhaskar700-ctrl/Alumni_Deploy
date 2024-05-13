@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 import Post from '../models/Post.js';
 import User from '../models/User.js';
-import NotificationController from './NotificationController.js';
+import NotificationController from './notificationController.js';
 
 // Define the ForumController function
 const ForumController = (io) => ({
