@@ -1,7 +1,7 @@
 // controllers/eventController.js
 import Event from '../models/Event.js';
 import User from '../models/User.js'; // Import the User model to fetch users for notifications
-import NotificationController from './NotificationController.js';
+import NotificationController from './notificationController.js';
 
 const eventController = {
     createEvent: async (req, res) => {

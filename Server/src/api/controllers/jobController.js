@@ -1,7 +1,7 @@
 // controllers/jobController.js
 import Job from '../models/Job.js';
 import User from '../models/User.js'; // Import the User model to fetch users
-import NotificationController from './NotificationController.js';
+import NotificationController from './notificationController.js';
 
 const jobController = {
     createJob: async (req, res) => {
