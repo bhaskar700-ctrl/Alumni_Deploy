@@ -1,7 +1,7 @@
 // controllers/messageController.js
 import Message from '../models/Message.js';
 import User from '../models/User.js';
-import NotificationController from './NotificationController.js';
+import NotificationController from './notificationController.js';
 
 class MessageController {
     constructor(io) {
