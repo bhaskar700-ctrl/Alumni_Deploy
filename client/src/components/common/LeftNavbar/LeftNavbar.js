@@ -137,7 +137,7 @@ export function SidebarWithContentSeparator() {
             <CurrencyDollarIcon className="h-5 w-5" />
           </ListItemPrefix>
           <Link
-            to="/donation"
+            to="/donation-analytics"
             className="text-blue-gray-900 hover:text-blue-gray-600"
           >
             Donations
