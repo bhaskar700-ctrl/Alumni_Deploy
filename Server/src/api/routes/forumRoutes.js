@@ -1,5 +1,5 @@
 import express from 'express';
-import ForumControllerInit from '../controllers/ForumController.js';
+import ForumControllerInit from '../controllers/forumController.js';
 import authenticate from '../../middleware/authenticate.js'; // Ensure the path is correct
 
 // This function will initialize the ForumController with the Socket.IO instance
