@@ -15,7 +15,7 @@ import jobRoutes from './api/routes/jobRoutes.js';
 import eventRoutes from './api/routes/eventRoutes.js';
 import donationRoutes from './api/routes/donationRoutes.js';
 import analyticsRoutes from './api/routes/donationAnalyticsRoutes.js';
-import notificationRoutes from './api/routes/NotificationRoutes.js';
+// import notificationRoutes from './api/routes/NotificationRoutes.js';
 import userDirectoryRoutes from './api/routes/userDirectoryRoutes.js';
 import studentUploadRoutes from './api/routes/studentUploadRoutes.js';
 import messageRoutesInit from './api/routes/messageRoutes.js';
@@ -64,7 +64,7 @@ app.use('/api', studentUploadRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/donations', donationRoutes);
-app.use('/api/notifications', notificationRoutes);
+// app.use('/api/notifications', notificationRoutes );
 app.use('/api/directory', userDirectoryRoutes);
 
 
