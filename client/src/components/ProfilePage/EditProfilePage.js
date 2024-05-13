@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { fetchUserProfile, updateUserProfile } from '../../redux/store/userSlice';
 
 function EditProfilePage() {
+    const navigate=useNavigate();
+    const handleGoBack=()=>{
+        navigate(-1);
+    };
     const dispatch = useDispatch();
     const { profile } = useSelector(state => state.user);
     const [formData, setFormData] = useState({
@@ -90,6 +95,24 @@ function EditProfilePage() {
     return (
         <div className="container mt-6 mb-6 border-2 border-sky-400 mx-auto py-8">
             <h1 className="text-3xl font-semibold mb-6">Edit Profile</h1>
+            <button onClick={handleGoBack} className="absolute top-4 right-4">
+        {/* Insert your back button icon here */}
+        {/* For example, using an SVG icon */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-gray-500 hover:text-gray-700 cursor-pointer"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+          />
+        </svg>
+      </button>
             <form onSubmit={handleSubmit} className="space-y-6 p-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {/* Personal Details */}

@@ -2,6 +2,7 @@ import express from 'express';
 import http from 'http';
 import { Server as SocketServer } from 'socket.io';
 import cors from 'cors';
+// import paymentRoute from "./routes/paymentRoutes.js";
 import connectDB from './config/db.js';
 
 // Import routes
@@ -13,9 +14,10 @@ import friendRequestRoutes from './api/routes/friendRequestRoutes.js';
 import jobRoutes from './api/routes/jobRoutes.js';
 import eventRoutes from './api/routes/eventRoutes.js';
 import donationRoutes from './api/routes/donationRoutes.js';
+import analyticsRoutes from './api/routes/donationAnalyticsRoutes.js';
 import notificationRoutes from './api/routes/NotificationRoutes.js';
 import userDirectoryRoutes from './api/routes/userDirectoryRoutes.js';
-
+import studentUploadRoutes from './api/routes/studentUploadRoutes.js';
 import messageRoutesInit from './api/routes/messageRoutes.js';
 
 import { PORT } from './config/index.js';
@@ -36,6 +38,9 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+app.use(express.urlencoded({ extended: true }));
+
+
 // Initialize the forumRoutes with the io instance
 const forumRoutes = forumRoutesInit(io);
 
@@ -44,18 +49,26 @@ app.get('/', (req, res) => {
   res.send('Alumni Information System Backend');
 });
 
+// app.get("/api/getkey", (req, res) =>
+//   res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
+// );
+
 // API Routes
 app.use('/api/users', userRoutes);
 app.use('/api/users', profileRoutes);
 app.use('/api/friends', friendRequestRoutes);
 app.use('/api/messages', messageRoutes(io));
 app.use('/api/forums', forumRoutes);
+app.use('/api', studentUploadRoutes);
 
 app.use('/api/jobs', jobRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/donations', donationRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/directory', userDirectoryRoutes);
+
+
+app.use("/api/analytics",analyticsRoutes );
 
 
 

@@ -1,20 +1,25 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams ,useNavigate} from 'react-router-dom';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchJobById } from '../../redux/store/jobSlice'; // Adjust the import path to where your jobSlice is
 
 const JobDetailsPage = () => {
+    const navigate=useNavigate();
     const { jobId } = useParams(); // Get the jobId from the URL
     const dispatch = useDispatch();
     const job = useSelector((state) => state.jobs.currentJob); // Assuming currentJob holds the details of the job
     const { status, error } = useSelector((state) => state.jobs); // Assuming you track the status of fetch operations
-
+    
     useEffect(() => {
         if (jobId) {
             dispatch(fetchJobById(jobId));
         }
     }, [dispatch, jobId]);
-
+    
+    const handleGoBack=()=>{
+        navigate(-1);
+    }
     if (status === 'loading') {
         return <div>Loading...</div>;
     }
@@ -29,9 +34,26 @@ const JobDetailsPage = () => {
 
     return (
         <div className="xl:mx-auto xl:container border-2 xl:px-20 md:px-6 px-4 py-12">
+         <button onClick={handleGoBack} className="absolute top-4 right-4">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-gray-500 hover:text-gray-700 cursor-pointer"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+          />
+        </svg>
+      </button>
             <div className="lg:flex items-center justify-center lg:space-x-12 2xl:space-x-6">
                 <div className="">
                     <h2 className="lg:text-4xl text-3xl font-extrabold leading-9 text-gray-800 ">Job Details</h2>
+                   
                     <div className="mt-6 lg:w-full">
                     <div className="job-details">
                         <h2 className="mb-4">{job.title}</h2>
@@ -49,6 +71,7 @@ const JobDetailsPage = () => {
                     <img src="https://i.ibb.co/SKLJ7WX/austin-distel-jp-Hw8ndw-J-Q-unsplash-1.png" alt="ongoing meeting" className="w-full obejct-fit object-center object-fill h-full" />
                 </div>
             </div>
+           
         </div>
     );
 };

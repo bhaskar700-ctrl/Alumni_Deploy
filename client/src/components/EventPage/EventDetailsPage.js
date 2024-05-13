@@ -1,16 +1,21 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; // Importing useNavigate
 import { useSelector, useDispatch } from "react-redux";
 import { fetchEventById } from "../../redux/store/eventSlice"; // Adjust import paths as necessary
 
 const EventDetailsPage = () => {
   const { eventId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Using useNavigate
   const { event, status, error } = useSelector((state) => state.events);
 
   useEffect(() => {
     dispatch(fetchEventById(eventId));
   }, [dispatch, eventId]);
+
+  const handleGoBack = () => {
+    navigate(-1); // Navigating back
+  };
 
   if (error) {
     return (
@@ -65,6 +70,24 @@ const EventDetailsPage = () => {
           />
         </div>
       </div>
+      <button onClick={handleGoBack} className="absolute top-4 right-4">
+        {/* Insert your back button icon here */}
+        {/* For example, using an SVG icon */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-gray-500 hover:text-gray-700 cursor-pointer"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+          />
+        </svg>
+      </button>
     </div>
   );
 };

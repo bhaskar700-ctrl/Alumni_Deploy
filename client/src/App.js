@@ -11,15 +11,17 @@ import DashboardPage from './components/DashboardPage/DashboardPage';
 import ForumPage from './components/ForumPage/ForumPage';
 import LogoutPage from './components/LogOutPage/LogOutPage';
 import Signup from './components/Signup/Signup';
+import UploadStudentsPage from './components/UploadStudentsPage/UploadStudentsPage';
 //import ChatPage from './components/ChatPage/ChatPage';
-import Donation from './components/DonationPage/Donation';
+import DonationPage from './components/DonationPage/DonationPage';
+// import MakeDonationPage from './components/DonationPage/MakeDonationPage';
 // Import the job components
 // Correct the paths according to the actual component definitions
 import JobListPage from './components/JobPostingPage/JobListPage';
 import CreateJobPage from './components/JobPostingPage/CreateJobPage'; // Create job page
 import JobDetailsPage from './components/JobPostingPage/JobDetailsPage'; // Job details page
 import EditJobPage from './components/JobPostingPage/EditJobPage';
-import UploadCSV from './components/UploadCSV/UploadCSV';
+//import UploadCSV from './components/UploadCSV/UploadCSV';
 import Contact from './components/Contact/Contact';
 // Import the event components
 import EventListPage from './components/EventPage/EventListPage';
@@ -36,6 +38,9 @@ import UserDirectoryPage from './components/UserDirectoryPage/UserDirectoryPage'
 import UserDirectoryProfilePage from './components/UserDirectoryPage/UserProfilePage';
 
 import ChatPage from './components/ChatPage/ChatPage'; // Adjust path based on your structure
+import MakeDonationPage from './components/DonationPage/MakeDonationPage';
+import DonationAnalyticsComponent from './components/DonationPage/donationAnalytics';
+import DonationHistory from './components/DonationPage/DonationHistory';
 
 
 function App() {
@@ -46,16 +51,20 @@ function App() {
       <div className="App">
         <Navbar />
         {isAuthenticated && (
-          <div className="flex flex-col md:flex-row">
+          <div className="flex flex-col h-full md:flex-row">
             <SidebarWithContentSeparator className="md:w-1/4" />
             <div className="flex flex-col mt-15 w-full">
-              <div className="w-full h-100vh  px-4">
+              <div className="w-full h-100vh py-5  px-4">
                 <Routes>
                   <Route path="/dashboard" element={<DashboardPage />} />
                   <Route path="/forum" element={<ForumPage />} />
                   <Route path="/logout" element={<LogoutPage />} />
-                  <Route path="/upload" element={<UploadCSV />} />
-                  <Route path="/donation" element={<Donation />} />
+                  {/* <Route path="/upload" element={<UploadCSV />} /> */}
+                  <Route path="/donation" element={<DonationPage />} />
+                  <Route path="/make-donation" element={<MakeDonationPage />} />
+                  <Route path="/donation-analytics" element={<DonationAnalyticsComponent />} />
+                  <Route path="/donation-history" element={<DonationHistory />} />
+                  <Route path="/upload-students" element={<UploadStudentsPage />} />
                   {/* Protected Job Routes */}
                   
                   <Route path="/jobs/create" element={<CreateJobPage />} />
@@ -98,7 +107,7 @@ function App() {
                   <Route path="/contact" element={<Contact />} />
           {/* Public Job Routes */}
           
-          {!isAuthenticated && <Route path="/dashboard" element={<LoginPage />} />}
+          {!isAuthenticated && <Route path="/dashboard" element={<DashboardPage />} />}
           {/* Other public routes */}
         </Routes>
         <Footer />

@@ -7,7 +7,9 @@ const CreateJobPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate(); // Initialize the navigate function
     const { createStatus, createError } = useSelector((state) => state.jobs);
-
+    const handleGoBack=()=>{
+        navigate(-1);
+    };
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -37,6 +39,24 @@ const CreateJobPage = () => {
 
     return (
         <div className="max-w-4xl mx-auto border-2 border-sky-400 mb-10 p-5">
+        <button onClick={handleGoBack} className="absolute top-4 right-4">
+        {/* Insert your back button icon here */}
+        {/* For example, using an SVG icon */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-gray-500 hover:text-gray-700 cursor-pointer"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+          />
+        </svg>
+      </button>
             <h2 className="text-2xl font-semibold mb-6">Create Job Posting</h2>
             {createStatus === 'failed' && <p className="text-red-500">{createError}</p>}
             <form onSubmit={handleSubmit} className="space-y-4">

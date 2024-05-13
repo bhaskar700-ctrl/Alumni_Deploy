@@ -33,6 +33,10 @@ const EditEventPage = () => {
     }
   }, [dispatch, eventId, event]);
 
+  const handleGoBack = () => {
+    navigate(-1); // Navigating back
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -52,6 +56,24 @@ const EditEventPage = () => {
   return (
     <div className="border-2 border-sky-500 max-w-4xl mx-auto p-4">
       <h2 className="text-2xl font-semibold mb-6">Edit Event</h2>
+      <button onClick={handleGoBack} className="absolute top-4 right-4">
+        {/* Insert your back button icon here */}
+        {/* For example, using an SVG icon */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-gray-500 hover:text-gray-700 cursor-pointer"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+          />
+        </svg>
+      </button>
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label htmlFor="title" className="block text-sm font-medium text-gray-700">Title</label>

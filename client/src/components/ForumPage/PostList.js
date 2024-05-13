@@ -12,6 +12,7 @@ const PostList = () => {
     const dispatch = useDispatch();
     const posts = useSelector(state => state.forum.posts);
     const [showComments, setShowComments] = useState({});
+    const [likedPosts, setLikedPosts] = useState([]);
 
     useEffect(() => {
         const socket = io('http://localhost:3000');
@@ -37,6 +38,14 @@ const PostList = () => {
         }));
     };
 
+    const handleLike = postId => {
+        if (likedPosts.includes(postId)) {
+            setLikedPosts(prevLikedPosts => prevLikedPosts.filter(id => id !== postId)); // Unlike the post
+        } else {
+            setLikedPosts(prevLikedPosts => [...prevLikedPosts, postId]); // Like the post
+        }
+    };
+
     return (
         <div className="space-y-4">
             {posts.map(post => {
@@ -53,7 +62,7 @@ const PostList = () => {
                             {profilePicture ? (
                                 <img 
                                     src={profilePicture} 
-                                    alt={`${firstName} ${lastName}`} // Fix the string interpolation
+                                    alt={`${firstName} ${lastName}`} 
                                     className="h-10 w-10 rounded-full mr-2" />
                             ) : (
                                 <FontAwesomeIcon icon={faUser} className="h-10 w-10 rounded-full mr-2 text-gray-400" />
@@ -68,7 +77,11 @@ const PostList = () => {
                         <p className="mt-2">{post.content}</p>
                         <div className="flex items-center justify-between mt-4">
                             <div className="flex items-center">
-                                <FaThumbsUp className="mr-3 cursor-pointer" />
+                                <FaThumbsUp 
+                                    className={`mr-3 cursor-pointer ${likedPosts.includes(post._id) ? 'text-red-500' : ''}`} 
+                                    onClick={() => handleLike(post._id)} 
+                                />
+                                <span>{likedPosts.filter(id => id === post._id).length}</span>
                                 <FaComment className="cursor-pointer" onClick={() => toggleComments(post._id)} />
                             </div>
                         </div>

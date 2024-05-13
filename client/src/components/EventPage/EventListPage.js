@@ -16,16 +16,16 @@ const EventListPage = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Events</h2>
+      <h2 className="text-xl text-center font-bold mb-4">Events</h2>
       <Link to="/events/create" className="mb-4 inline-block bg-blue-500 text-white p-2 rounded">Create Event</Link>
-      <div className="py-10 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="py-10 grid gap-x-8 gap-y-4 grid-cols-3">
       {events.map((event) => (
         <div key={event._id} className="bg-white p-4 rounded shadow-md w-fit">
           <div style={{ height: "200px", width: "300px" }}>
             <img
               className="w-full h-full object-cover rounded"
               alt="event"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9PoWmbPELmiwlrvUv9Oqu2HSuSVrWpJLmZbeMRFU4ZQ&s" // Replace with a placeholder image URL
+              src="https://miro.medium.com/v2/resize:fit:900/1*cRSs6Icwnk2qQ9yLzEi8jg.png" // Replace with a placeholder image URL
             />
           </div>
           <h1 className="text-2xl font-medium mt-2">{event.title}</h1>
